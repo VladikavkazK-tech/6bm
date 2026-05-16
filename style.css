@@ -1,0 +1,309 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #030a1c, #1a2a4d);
+    color: white;
+    overflow-x: hidden;
+}
+
+.container {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Контейнер для созвездий */
+.constellations-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+/* Секция для каждого созвездия */
+.constellation-section {
+    height: 600px; /* Больше места для созвездий и текста */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Контейнер созвездия */
+.constellation {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+/* Обычные звёзды */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* Звёзды воспоминаний */
+.star.memory {
+    background: #ffeb3b;
+    width: 6px !important;
+    height: 6px !important;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: memoryTwinkle 1.5s infinite alternate;
+    box-shadow: 0 0 8px rgba(255, 235, 59, 0.5);
+}
+
+@keyframes memoryTwinkle {
+    from {
+        box-shadow: 0 0 8px rgba(255, 235, 59, 0.5), 0 0 15px rgba(255, 235, 59, 0.2);
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        box-shadow: 0 0 12px rgba(255, 235, 59, 0.7), 0 0 25px rgba(255, 235, 59, 0.4);
+        transform: scale(1.3) rotate(360deg);
+    }
+}
+
+/* Текст истории внутри созвездия */
+.constellation-text {
+    text-align: center;
+    max-width: 400px;
+    line-height: 1.4;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Показываем текст при наведении на созвездие */
+.constellation:hover + .constellation-text {
+    opacity: 1;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    color: #333;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Плашка создателя */
+.creator-badge {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Адаптация под мобильные устройства */
+@media (max-width: 768px) {
+    .constellation-section {
+        height: 400px;
+    }
+
+    .constellation {
+        width: 200px;
+        height: 200px;
+    }
+
+    .star.memory {
+        width: 4px !important;
+        height: 4px !important;
+    }
+
+    .modal-content {
+        padding: 20px;
+        width: 90%;
+    }
+}
+
+/* Базовые стили для мобильных */
+@media (max-width: 768px) {
+    .constellation-section {
+        height: 450px; /* Уменьшаем высоту секции */
+        padding: 20px 0;
+    }
+
+    .constellation {
+        width: 250px; /* Уменьшаем размер созвездия */
+        height: 250px;
+        margin-bottom: 15px;
+    }
+
+    /* Уменьшаем звёзды на мобильных */
+    .star {
+        width: 3px !important;
+        height: 3px !important;
+    }
+
+    .star.memory {
+        width: 5px !important;
+        height: 5px !important;
+    }
+
+    /* Стилизуем текст для мобильных */
+    .constellation-text {
+        font-size: 0.8em;
+        padding: 0 10px;
+        max-width: 90%;
+    }
+
+    .constellation-text h3 {
+        font-size: 1.1em;
+        margin-bottom: 8px;
+    }
+
+    /* Адаптация модального окна */
+    .modal-content {
+        padding: 15px;
+        width: 95%;
+        border-radius: 10px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.3em;
+        margin-top: 0;
+    }
+
+    .modal-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .modal-content p {
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+
+    /* Плашка создателя на мобильных */
+    .creator-badge {
+        font-size: 0.8em;
+        padding: 15px 10px;
+    }
+}
+
+/* Стили для очень маленьких экранов (смартфоны) */
+@media (max-width: 480px) {
+    .constellation-section {
+        height: 400px; /* Ещё уменьшаем высоту */
+    }
+
+    .constellation {
+        width: 200px;
+        height: 200px;
+    }
+
+    /* Убираем свечение на слабых устройствах */
+    .star.memory {
+        box-shadow: none;
+        animation: memoryTwinkleMobile 1.5s infinite alternate;
+    }
+
+    @keyframes memoryTwinkleMobile {
+        from { transform: scale(1) rotate(0deg); }
+        to { transform: scale(1.2) rotate(180deg); }
+    }
+
+    /* Упрощаем текст */
+    .constellation-text {
+        font-size: 0.7em;
+    }
+
+    .constellation-text h3 {
+        font-size: 1em;
+    }
+
+    /* Оптимизация модального окна для маленьких экранов */
+    .modal-content {
+        padding: 10px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2em;
+    }
+
+    .close {
+        font-size: 24px;
+        top: 5px;
+        right: 10px;
+    }
+}
+
+/* Оптимизация производительности на мобильных */
+@media (hover: none) and (pointer: coarse) {
+    /* Отключаем сложные анимации на сенсорных устройствах */
+    .star.memory {
+        animation: none;
+        transform: scale(1);
+    }
+
+    .constellation:hover + .constellation-text {
+        opacity: 1 !important; /* Всегда показываем текст на мобильных */
+    }
+
+    /* Убираем плавные переходы для лучшей производительности */
+    .constellation-section {
+        transition: none !important;
+    }
+}
+
+/* Стили для сообщения об отсутствии изображения */
+.no-image-message {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+
+/* Резервное фоновое изображение */
+.modal-content::before {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-8h-2v2h2v2h2v-2h2v-2h-2V8h-2v2z"/></svg>') no-repeat center;
+    opacity: 0.3;
+}
